@@ -3,18 +3,21 @@
     <div class="sidebar">
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                data-accordion="false">
+            <div class="text-center my-3">
+                <!-- Logo -->
+                <a href="{{ url('/') }}" class="logo">
+                    <span class="h4 logo-lg">Test task</span>
+                </a>
+            </div>
+            <ul class="nav nav-pills nav-sidebar flex-column">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-users"></i>
-                        Employees
+                    <a href="{{ route('employees.index') }}" class="nav-link @if(\App\Helpers\Url\Url::hasString('employees')) active @endif">
+                        <i class="nav-icon fa fa-users"></i>Employees
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-book"></i>
-                        Positions
+                    <a href="{{ route('positions.index') }}" class="nav-link @if(\App\Helpers\Url\Url::hasString('positions')) active @endif">
+                        <i class="nav-icon fa fa-book"></i>Positions
                     </a>
                 </li>
             </ul>

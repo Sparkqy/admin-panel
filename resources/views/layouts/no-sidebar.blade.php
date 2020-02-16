@@ -12,12 +12,9 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-    @include('includes.navbars.navbar')
-    @include('includes/sidebar')
+    @include('includes.navbars.no-sidebar_navbar')
 
-    <div class="content-wrapper">
-        @yield('content')
-    </div>
+    @yield('content')
 </div>
 @include('includes/scripts')
 @stack('page-scripts')

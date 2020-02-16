@@ -2,45 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreEmployee;
-use Illuminate\Contracts\View\View;
+use App\Models\Position;
+use App\Services\Datatables\DatatablesBuilder;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
-class EmployeesController extends Controller
+class PositionsController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     *
      * @return View
      */
     public function index(): View
     {
-        return \view('employees.index');
+        return \view('positions.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return View
+     * @return \Illuminate\Http\Response
      */
-    public function create(): View
+    public function create()
     {
-        return \view('employees.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreEmployee $request)
+    public function store(Request $request)
     {
-        dump($request);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -51,7 +54,7 @@ class EmployeesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -62,8 +65,8 @@ class EmployeesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -74,7 +77,7 @@ class EmployeesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

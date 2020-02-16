@@ -19,6 +19,10 @@ Auth::routes(['register' => false, 'verify' => false, 'reset' => false]);
 Route::redirect('/', '/employees');
 
 Route::middleware(['auth'])->group(function () {
+    // Employees
     Route::resource('employees', 'EmployeesController');
+
+    // Positions
+    Route::resource('positions', 'PositionsController');
 });
 

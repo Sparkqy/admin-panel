@@ -19,10 +19,12 @@ $factory->define(User::class, function (Faker $faker) {
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'phone_number' => $faker->phoneNumber,
-        'profile_image' => '/uploads/profile-images/no-avatar.png',
-        'salary' => $faker->randomFloat(3, 0, 500.000),
-        'position_id' => rand(1, 100),
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'admin_created_id' => rand(1, 50000),
+        'salary' => $faker->randomFloat(3, 0, 500.000),
+        'profile_image' => '/uploads/profile-images/no-avatar.png',
+        'position_id' => rand(1, 50),
+        'boss_id' => rand(1, 200),
+        'date_of_employment' => $faker->date(),
+        'admin_created_id' => rand(1, 200),
     ];
 });

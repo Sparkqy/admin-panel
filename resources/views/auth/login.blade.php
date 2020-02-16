@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.no-sidebar')
 @section('title', 'Login')
 
 @section('content')
@@ -8,7 +8,6 @@
                 <h1 class="h4">Login</h1>
                 <form action="{{ route('login') }}" method="post">
                     @csrf
-
                     <div class="my-4">
                         <div class="form-group has-feedback">
                             <label for="email" class="small text-bold">Email</label>
@@ -18,8 +17,8 @@
 
                             @if ($errors->has('email'))
                                 <span class="glyphicon glyphicon-envelope form-control-feedback">
-                            {{ $errors->first('email') }}
-                        </span>
+                                    {{ $errors->first('email') }}
+                                </span>
                             @endif
                         </div>
 
@@ -31,8 +30,8 @@
 
                             @if ($errors->has('password'))
                                 <span class="glyphicon glyphicon-lock form-control-feedback">
-                            {{ $errors->first('password') }}
-                        </span>
+                                    {{ $errors->first('password') }}
+                                </span>
                             @endif
                         </div>
                     </div>

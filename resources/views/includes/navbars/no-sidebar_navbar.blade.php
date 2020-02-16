@@ -1,4 +1,4 @@
-<nav class="@url('/login') @else main-header @endurl navbar navbar-expand navbar-gray">
+<nav class="navbar navbar-expand navbar-gray">
     <ul class="navbar-nav">
         <li class="nav-item ml-5">
             <!-- Brand Logo -->

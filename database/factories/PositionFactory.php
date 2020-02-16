@@ -6,6 +6,6 @@ use Faker\Generator as Faker;
 $factory->define(Position::class, function (Faker $faker) {
     return [
         'name' => $faker->jobTitle,
-        'admin_created_id' => rand(1, 50000),
+        'admin_created_id' => rand(1, 200),
     ];
 });
