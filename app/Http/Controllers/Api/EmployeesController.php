@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
+use App\Models\Employee;
 use App\Services\Datatables\DatatablesBuilder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -38,7 +38,7 @@ class EmployeesController extends Controller
 
         if ($request->has('q')) {
             $search = trim($request->input('term', ''));
-            $data = User::where('name', 'LIKE', '%' . $search . '%')->get(['id', 'name as text']);
+            $data = Employee::where('name', 'LIKE', '%' . $search . '%')->get(['id', 'name as text']);
         }
 
         return response()->json(['results' => $data]);

@@ -3,7 +3,7 @@
 namespace App\Services\Datatables;
 
 use App\Models\Position;
-use App\Models\User;
+use App\Models\Employee;
 use Yajra\DataTables\DataTables;
 
 class DatatablesBuilder
@@ -14,18 +14,18 @@ class DatatablesBuilder
      */
     public static function makeEmployeesDatatables()
     {
-        $employees = User::select(['id', 'name', 'profile_image', 'position_id', 'date_of_employment', 'phone_number', 'email', 'salary']);
+        $employees = Employee::select(['id', 'name', 'profile_image', 'position_id', 'date_of_employment', 'phone_number', 'email', 'salary']);
 
         return DataTables::of($employees)
-            ->addColumn('actions', function (User $employee) {
+            ->addColumn('actions', function (Employee $employee) {
                 $actions = "<a href='" . route('employees.edit', $employee->id) . "' class='btn btn-sm btn-link'><i class='fa fa-pencil'></i></a>";
                 $actions .= "<button class='btn btn-sm btn-link' id='remove-employee' data-id='$employee->id' data-name='$employee->name'><i class='fa fa-trash text-danger'></i></button>";
                 return $actions;
             })
-            ->addColumn('position', function (User $employee) {
+            ->addColumn('position', function (Employee $employee) {
                 return $employee->position->name;
             })
-            ->addColumn('profile_image', function (User $employee) {
+            ->addColumn('profile_image', function (Employee $employee) {
                 return "<img src='$employee->profile_image' alt='$employee->name profile image' class='image-sm'>";
             })
             ->rawColumns(['actions', 'profile_image'])
@@ -38,7 +38,7 @@ class DatatablesBuilder
      */
     public static function makePositionsDatatables()
     {
-        $positions = Position::select(['id', 'name', 'updated_at']);
+        $positions = Position::select(['id', 'name', 'created_at', 'updated_at']);
 
         return DataTables::of($positions)
             ->addColumn('actions', function (Position $position) {
@@ -47,7 +47,7 @@ class DatatablesBuilder
                 return $actions;
             })
             ->addColumn('updated_at', function (Position $position) {
-                return $position->updated_at->format('d.m.Y');
+                return $position->updated_at ? $position->updated_at->format('d.m.Y') : $position->created_at->format('d.m.Y');
             })
             ->rawColumns(['actions'])
             ->make(true);

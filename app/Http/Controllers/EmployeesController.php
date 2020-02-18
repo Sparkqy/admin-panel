@@ -2,12 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreEmployee;
+use App\Http\Requests\EmployeeStoreRequest;
+use App\Repositories\Interfaces\EmployeeRepositoryInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class EmployeesController extends Controller
 {
+    /**
+     * @var EmployeeRepositoryInterface
+     */
+    private EmployeeRepositoryInterface $employeeRepository;
+
+    /**
+     * EmployeesController constructor.
+     * @param EmployeeRepositoryInterface $employeeRepository
+     */
+    public function __construct(EmployeeRepositoryInterface $employeeRepository)
+    {
+        $this->employeeRepository = $employeeRepository;
+    }
+
     /**
      * @return View
      */
@@ -32,9 +47,9 @@ class EmployeesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreEmployee $request)
+    public function store(EmployeeStoreRequest $request)
     {
-        dump($request);
+        return $this->employeeRepository->store($request);
     }
 
     /**

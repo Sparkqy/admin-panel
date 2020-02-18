@@ -37,6 +37,6 @@ class PhoneNumber implements Rule
      */
     public function message()
     {
-        return 'The :attribute must be valid phone number. Example: +380 (99) 429 82 52';
+        return 'The :attribute must be valid phone number. Example: +380 (XX) XXX XX XX';
     }
 }

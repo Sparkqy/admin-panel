@@ -14,10 +14,10 @@ class CreatePositionsTable extends Migration
     public function up()
     {
         Schema::create('positions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedInteger('admin_created_id');
-            $table->unsignedInteger('admin_updated_id')->nullable();
+            $table->unsignedBigInteger('admin_created_id')->nullable();
+            $table->unsignedBigInteger('admin_updated_id')->nullable();
             $table->timestamps();
         });
     }

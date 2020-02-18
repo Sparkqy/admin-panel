@@ -1,5 +1,6 @@
 .idea
 /docker/data/
+core
 /node_modules
 /public/hot
 /public/storage

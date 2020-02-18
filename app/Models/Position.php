@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Position extends Model
 {
@@ -11,5 +12,17 @@ class Position extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'admin_created_id', 'admin_updated_id'];
+    protected $fillable = [
+        'name',
+        'admin_created_id',
+        'admin_updated_id',
+    ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(Administrator::class, 'admin_created_id');
+    }
 }
