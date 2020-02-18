@@ -38,7 +38,15 @@ class Employee extends Authenticatable
      */
     protected $hidden = ['password'];
 
-    protected $casts = ['date_of_employment' => 'date:d.m.Y'];
+    /**
+     * @var array
+     */
+    protected $dates = ['date_of_employment'];
+
+    /**
+     * @var string
+     */
+    protected $dateFormat = 'd.m.Y';
 
     /**
      * @return BelongsTo

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeStoreRequest;
+use App\Models\Employee;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
