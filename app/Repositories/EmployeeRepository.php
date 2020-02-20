@@ -5,9 +5,10 @@ namespace App\Repositories;
 use App\Http\Requests\EmployeeStoreRequest;
 use App\Models\Employee;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
-use App\Services\FileUploaders\ImageUploader;
+use App\Services\Uploaders\ImageUploader;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
@@ -15,13 +16,13 @@ class EmployeeRepository implements EmployeeRepositoryInterface
      * @param EmployeeStoreRequest $request
      * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function store(EmployeeStoreRequest $request)
+    public function store(EmployeeStoreRequest $request): Employee
     {
         $profileImagePath = $request->has('profile_image')
-            ? ImageUploader::store($request->file('profile_image'), 'uploads/profile_images')
+            ? ImageUploader::storeProfileImage($request->file('profile_image'))
             : Employee::NO_PROFILE_IMAGE_PATH;
 
-        Employee::create([
+        $employee = Employee::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
@@ -33,7 +34,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
             'date_of_employment' => Carbon::parse($request->date_of_employment)->format('Y-m-d'),
         ]);
 
-        return redirect()->route('employees.index')->with('success', 'New employee was successfully created.');
+        return $employee;
     }
 
     public function update(Employee $employee, EmployeeStoreRequest $request)
@@ -41,8 +42,13 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         // TODO: Implement update() method.
     }
 
-    public function destroy(Employee $employee)
+    /**
+     * @param Employee $employee
+     * @return mixed|void
+     * @throws \Exception
+     */
+    public function destroy(Employee $employee): void
     {
-        // TODO: Implement destroy() method.
+        $employee->delete();
     }
 }
