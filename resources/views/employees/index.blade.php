@@ -12,7 +12,7 @@
             <h1 class="h4">Employees</h1>
             <a href="{{ route('employees.create') }}" class="btn btn-primary">Add employee</a>
         </div>
-        @include('includes.flash-messages')
+        @include('includes.messages.flash-messages')
         <div class="border">
             <h3 class="h6 p-3">Employee list</h3>
             <table class="table table-responsive-sm table-bordered table-striped" id="employeesTable"

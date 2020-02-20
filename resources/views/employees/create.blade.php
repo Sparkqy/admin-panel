@@ -17,83 +17,66 @@
                 @csrf
                 <div class="form-group">
                     <label for="profile_image" class="small text-bold">Photo</label>
-                    <input type="file" class="form-control-file" id="profile_image" name="profile_image">
+                    <input type="file"
+                           class="form-control-file  @include('includes.messages.validation-error-input-class', ['fieldName' => 'profile_image'])"
+                           id="profile_image" name="profile_image">
                     <small class="text-muted">File format jpg, png up to 5MB, the minimum size of 300x300px</small>
-                    @if ($errors->has('profile_image'))
-                        <p class="small text-danger mt-1">
-                            <i class="fa fa-exclamation-circle text-danger"></i> {{ $errors->first('profile_image') }}
-                        </p>
-                    @endif
+                    @include('includes.messages.validation-errors', ['fieldName' => 'profile_image'])
                 </div>
                 <div class="form-group">
                     <label for="name" class="small text-bold">Name</label>
-                    <input type="text" class="form-control form-control-sm" id="name" name="name"
+                    <input type="text"
+                           class="form-control form-control-sm @include('includes.messages.validation-error-input-class', ['fieldName' => 'name'])"
+                           id="name" name="name"
                            value="{{ old('name') }}" required>
-                    @if ($errors->has('name'))
-                        <p class="small text-danger mt-1">
-                            <i class="fa fa-exclamation-circle text-danger"></i> {{ $errors->first('name') }}
-                        </p>
-                    @endif
+                    @include('includes.messages.validation-errors', ['fieldName' => 'name'])
                 </div>
                 <div class="form-group">
                     <label for="phone_number" class="small text-bold">Phone</label>
-                    <input type="text" class="form-control form-control-sm" id="phone_number" name="phone_number"
+                    <input type="text"
+                           class="form-control form-control-sm @include('includes.messages.validation-error-input-class', ['fieldName' => 'phone_number'])"
+                           id="phone_number" name="phone_number"
                            value="{{ old('phone_number', '+380') }}" required>
-                    @if ($errors->has('phone_number'))
-                        <p class="small text-danger mt-1">
-                            <i class="fa fa-exclamation-circle text-danger"></i> {{ $errors->first('phone_number') }}
-                        </p>
-                    @endif
+                    @include('includes.messages.validation-errors', ['fieldName' => 'phone_number'])
                 </div>
                 <div class="form-group">
                     <label for="email" class="small text-bold">Email</label>
-                    <input type="email" class="form-control form-control-sm" id="email" name="email"
+                    <input type="email"
+                           class="form-control form-control-sm @include('includes.messages.validation-error-input-class', ['fieldName' => 'email'])"
+                           id="email" name="email"
                            value="{{ old('email') }}" required>
-                    @if ($errors->has('email'))
-                        <p class="small text-danger mt-1">
-                            <i class="fa fa-exclamation-circle text-danger"></i> {{ $errors->first('email') }}
-                        </p>
-                    @endif
+                    @include('includes.messages.validation-errors', ['fieldName' => 'email'])
                 </div>
                 <div class="form-group">
                     <label for="position" class="small text-bold">Position</label>
-                    <select class="form-control" style="width: 100%;" id="position" name="position_id"
-                            required></select>
-                    @if ($errors->has('position_id'))
-                        <p class="small text-danger mt-1">
-                            <i class="fa fa-exclamation-circle text-danger"></i> {{ $errors->first('position_id') }}
-                        </p>
-                    @endif
+                    <select
+                        class="form-control @include('includes.messages.validation-error-input-class', ['fieldName' => 'position_id'])"
+                        style="width: 100%;" id="position" name="position_id"
+                        required></select>
+                    @include('includes.messages.validation-errors', ['fieldName' => 'position_id'])
                 </div>
                 <div class="form-group">
                     <label for="salary" class="small text-bold">Salary</label>
-                    <input type="number" step="0.001" min="0" max="500.000" class="form-control form-control-sm"
+                    <input type="number" step="0.001" min="0" max="500.000"
+                           class="form-control form-control-sm @include('includes.messages.validation-error-input-class', ['fieldName' => 'salary'])"
                            id="salary" name="salary" value="{{ old('salary') }}" required>
-                    @if ($errors->has('salary'))
-                        <p class="small text-danger mt-1">
-                            <i class="fa fa-exclamation-circle text-danger"></i> {{ $errors->first('salary') }}
-                        </p>
-                    @endif
+                    @include('includes.messages.validation-errors', ['fieldName' => 'salary'])
                 </div>
                 <div class="form-group">
                     <label for="head" class="small text-bold">Head</label>
-                    <select class="form-control" style="width: 100%;" id="head" name="head_id"></select>
-                    @if ($errors->has('head_id'))
-                        <p class="small text-danger mt-1">
-                            <i class="fa fa-exclamation-circle text-danger"></i> {{ $errors->first('boss_id') }}
-                        </p>
-                    @endif
+                    <select
+                        class="form-control @include('includes.messages.validation-error-input-class', ['fieldName' => 'head_id'])"
+                        style="width: 100%;" id="head" name="head_id"></select>
+                    @include('includes.messages.validation-errors', ['fieldName' => 'head_id'])
                 </div>
                 <div class="form-group">
                     <label for="date_of_employment" class="small text-bold">Date of employment</label>
-                    <input type="text" class="form-control form-control-sm" id="date_of_employment"
+                    <input type="text"
+                           class="form-control form-control-sm @include('includes.messages.validation-error-input-class', ['fieldName' => 'date_of_employment'])"
+                           id="date_of_employment"
                            name="date_of_employment" value="{{ old('date_of_employment') }}" autocomplete="off"
                            required>
-                    @if ($errors->has('date_of_employment'))
-                        <p class="small text-danger mt-1">
-                            <i class="fa fa-exclamation-circle text-danger"></i>{{ $errors->first('date_of_employment') }}
-                        </p>
-                    @endif
+                    @include('includes.messages.validation-errors', ['fieldName' => 'date_of_employment'])
                 </div>
                 <div class="form-group">
                     <div class="d-flex justify-content-end">
