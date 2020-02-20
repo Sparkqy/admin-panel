@@ -38,7 +38,7 @@ class EmployeesController extends Controller
 
         if ($request->has('q')) {
             $search = trim($request->input('term', ''));
-            $data = Employee::where('name', 'LIKE', '%' . $search . '%')->get(['id', 'name as text']);
+            $data = Employee::where('name', 'LIKE', '%' . $search . '%')->get(['id', 'name AS text']);
         }
 
         return response()->json(['results' => $data]);

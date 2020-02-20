@@ -32,32 +32,38 @@
             </table>
         </div>
     </div>
-{{--        <div class="modal" id="removing-employee-modal">--}}
-{{--            <div class="modal-dialog">--}}
-{{--                <div class="modal-content">--}}
-{{--                    <div class="modal-header">--}}
-{{--                        <h5 class="modal-title">Remove employee</h5>--}}
-{{--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                            <span aria-hidden="true">&times;</span>--}}
-{{--                        </button>--}}
-{{--                    </div>--}}
-{{--                    <div class="modal-body">--}}
-{{--                        <p>Are you sure you want to remove employee <span id="employee-remove-name"></span></p>--}}
-{{--                    </div>--}}
-{{--                    <div class="modal-footer">--}}
-{{--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
-{{--                        <button type="button" class="btn btn-primary">Remove</button>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+
+    <div class="modal" id="removing-employee-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Remove employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to remove employee <span id="remove-employee-name"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="" method="post" id="remove-employee-form">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-danger">Remove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('page-scripts')
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function () {
-            var table = $('#employeesTable').DataTable({
+            // Datatables configuration
+            let table = $('#employeesTable').DataTable({
                 lengthMenu: [50, 150, 250, 500],
                 processing: true,
                 serverSide: true,
@@ -81,6 +87,16 @@
 
             $(paddingXElements).addClass('px-3');
             $(paddingXYElements).addClass('p-3');
+        });
+
+        // Trigger remove employee modal window and config form
+        $(document).on('click', '#remove-employee', function () {
+            let removeEmployeeId = $(this).data('id');
+            let removeEmployeeName = $(this).data('name');
+
+            $('#remove-employee-form').attr('action', '{{ url('employees') . '/' }}' + removeEmployeeId);
+            $('#remove-employee-name').html(removeEmployeeName);
+            $('#removing-employee-modal').modal('show');
         });
     </script>
 @endpush

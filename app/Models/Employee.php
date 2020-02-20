@@ -10,7 +10,8 @@ class Employee extends Authenticatable
 {
     use Notifiable;
 
-    const NO_PROFILE_IMAGE_PATH = '/uploads/profile-images/no-avatar.png';
+    const PROFILE_IMAGE_PATH = 'uploads/profile-images';
+    const NO_PROFILE_IMAGE_PATH = self::PROFILE_IMAGE_PATH . '/no-avatar.png';
 
     /**
      * The attributes that are mass assignable.
@@ -38,7 +39,10 @@ class Employee extends Authenticatable
      */
     protected $hidden = ['password'];
 
-    protected $casts = ['date_of_employment' => 'date:d.m.Y'];
+    /**
+     * @var array
+     */
+    protected $dates = ['date_of_employment'];
 
     /**
      * @return BelongsTo

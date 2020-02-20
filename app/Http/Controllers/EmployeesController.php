@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeStoreRequest;
+use App\Models\Employee;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -45,11 +46,15 @@ class EmployeesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(EmployeeStoreRequest $request)
     {
-        return $this->employeeRepository->store($request);
+        $this->employeeRepository->store($request);
+
+        return redirect()
+            ->route('employees.index')
+            ->with('success', 'New employee was successfully created.');
     }
 
     /**
@@ -58,7 +63,7 @@ class EmployeesController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Employee $employee)
     {
         //
     }
@@ -69,7 +74,7 @@ class EmployeesController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Employee $employee)
     {
         //
     }
@@ -81,7 +86,7 @@ class EmployeesController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Employee $employee)
     {
         //
     }
@@ -90,10 +95,14 @@ class EmployeesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Employee $employee)
     {
-        //
+        $this->employeeRepository->destroy($employee);
+
+        return redirect()
+            ->route('employees.index')
+            ->with('success', 'Employee ' . $employee->name .' was successfully deleted from the database.');
     }
 }
