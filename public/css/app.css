@@ -1,3 +1,12 @@
+input[type=file],
+input[type=file]::-webkit-file-upload-button {
+    cursor: pointer;
+}
+
+.input-date:hover {
+    cursor: pointer;
+}
+
 .select2-container--default .select2-selection--single {
     padding: 0 !important;
 }
@@ -6,7 +15,10 @@
     margin-top: 0 !important;
 }
 
-.image-sm {
-    width: 40px;
+.profile-image-icon {
+    width: 50px;
 }
 
+.profile-image-thumbnail {
+    width: 90px;
+}

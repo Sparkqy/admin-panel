@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EmployeeStoreRequest;
+use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class EmployeesController extends Controller
@@ -45,10 +46,10 @@ class EmployeesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param EmployeeRequest $request
+     * @return RedirectResponse
      */
-    public function store(EmployeeStoreRequest $request)
+    public function store(EmployeeRequest $request): RedirectResponse
     {
         $this->employeeRepository->store($request);
 
@@ -71,38 +72,42 @@ class EmployeesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return View
      */
-    public function edit(Employee $employee)
+    public function edit(Employee $employee): View
     {
-        //
+        return \view('employees.edit', compact('employee'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param EmployeeRequest $request
+     * @param Employee $employee
+     * @return RedirectResponse
      */
-    public function update(Request $request, Employee $employee)
+    public function update(EmployeeRequest $request, Employee $employee): RedirectResponse
     {
-        //
+        $this->employeeRepository->update($employee, $request);
+
+        return redirect()
+            ->route('employees.index')
+            ->with('success', 'Employee\'s information was successfully updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param Employee $employee
+     * @return RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy(Employee $employee)
+    public function destroy(Employee $employee): RedirectResponse
     {
         $this->employeeRepository->destroy($employee);
 
         return redirect()
             ->route('employees.index')
-            ->with('success', 'Employee ' . $employee->name .' was successfully deleted from the database.');
+            ->with('success', 'Employee was successfully deleted.');
     }
 }

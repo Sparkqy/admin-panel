@@ -7,16 +7,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Test task')</title>
-    @include('includes/styles')
+    @include('partials.styles')
     @stack('page-styles')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-    @include('includes.navbars.no-sidebar_navbar')
+    @include('partials.navbars.no-sidebar_navbar')
 
     @yield('content')
 </div>
-@include('includes/scripts')
+@include('partials.js')
 @stack('page-scripts')
 </body>
 </html>

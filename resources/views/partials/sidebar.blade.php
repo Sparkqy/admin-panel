@@ -1,10 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
             <div class="text-center my-3">
-                <!-- Logo -->
                 <a href="{{ url('/') }}" class="logo">
                     <span class="h4 logo-lg">Test task</span>
                 </a>
@@ -20,9 +17,12 @@
                         <i class="nav-icon fa fa-book"></i>Positions
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link @if(\App\Helpers\Url\Url::hasString('currencies')) active @endif">
+                        <i class="nav-icon fa fa-money"></i>Currencies
+                    </a>
+                </li>
             </ul>
         </nav>
-        <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
 </aside>

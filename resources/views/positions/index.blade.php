@@ -2,7 +2,6 @@
 @section('title', 'Positions')
 
 @push('page-styles')
-    <!-- Datatables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 @endpush
 
@@ -12,6 +11,7 @@
             <h1 class="h4">Positions</h1>
             <a href="{{ route('positions.create') }}" class="btn btn-primary">Add position</a>
         </div>
+        @include('partials.messages.flash-messages')
         <div class="border">
             <h3 class="h6 p-3">Position list</h3>
             <table class="table table-responsive-sm table-bordered table-striped" id="positionsTable"
@@ -26,6 +26,8 @@
             </table>
         </div>
     </div>
+
+    @include('positions.modals.remove')
 @endsection
 
 @push('page-scripts')
@@ -51,6 +53,16 @@
 
             $(paddingXElements).addClass('px-3');
             $(paddingXYElements).addClass('p-3');
+        });
+
+        // Trigger remove position modal window and config form
+        $(document).on('click', '#remove-position', function () {
+            let removePositionId = $(this).data('id');
+            let removePositionName = $(this).data('name');
+
+            $('#remove-position-form').attr('action', '{{ url('positions') . '/' }}' + removePositionId);
+            $('#remove-position-name').html(removePositionName);
+            $('#removing-position-modal').modal('show');
         });
     </script>
 @endpush

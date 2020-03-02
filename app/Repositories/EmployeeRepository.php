@@ -2,28 +2,29 @@
 
 namespace App\Repositories;
 
-use App\Http\Requests\EmployeeStoreRequest;
+use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Services\Uploaders\ImageUploader;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
     /**
-     * @param EmployeeStoreRequest $request
+     * @param EmployeeRequest $request
      * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function store(EmployeeStoreRequest $request): Employee
+    public function store(EmployeeRequest $request): Employee
     {
         $profileImagePath = $request->has('profile_image')
-            ? ImageUploader::storeProfileImage($request->file('profile_image'))
+            ? ImageUploader::uploadProfileImage($request->file('profile_image'))
             : Employee::NO_PROFILE_IMAGE_PATH;
 
-        $employee = Employee::create([
-            'name' => $request->name,
+        return Employee::create([
+            'name' => ucwords($request->name),
             'email' => $request->email,
             'phone_number' => $request->phone_number,
             'profile_image' => $profileImagePath,
@@ -33,22 +34,41 @@ class EmployeeRepository implements EmployeeRepositoryInterface
             'admin_created_id' => Auth::id(),
             'date_of_employment' => Carbon::parse($request->date_of_employment)->format('Y-m-d'),
         ]);
-
-        return $employee;
-    }
-
-    public function update(Employee $employee, EmployeeStoreRequest $request)
-    {
-        // TODO: Implement update() method.
     }
 
     /**
      * @param Employee $employee
-     * @return mixed|void
+     * @param EmployeeRequest $request
+     * @return bool
+     */
+    public function update(Employee $employee, EmployeeRequest $request): bool
+    {
+        $data = [
+            'name' => ucwords($request->name),
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'salary' => $request->salary,
+            'position_id' => $request->position_id,
+            'head_id' => $request->head_id,
+            'admin_created_id' => Auth::id(),
+            'date_of_employment' => Carbon::parse($request->date_of_employment)->format('Y-m-d'),
+        ];
+
+        if ($request->has('profile_image')) {
+            $profileImagePath = ImageUploader::updateProfileImage($request->file('profile_image'), $employee->profile_image);
+            $data['profile_image'] = $profileImagePath;
+        }
+
+        return $employee->update($data);
+    }
+
+    /**
+     * @param Employee $employee
      * @throws \Exception
      */
     public function destroy(Employee $employee): void
     {
+        ImageUploader::deleteProfileImage($employee->profile_image);
         $employee->delete();
     }
 }

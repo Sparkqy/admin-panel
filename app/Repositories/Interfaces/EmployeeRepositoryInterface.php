@@ -2,27 +2,27 @@
 
 namespace App\Repositories\Interfaces;
 
-use App\Http\Requests\EmployeeStoreRequest;
+use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 
 interface EmployeeRepositoryInterface
 {
     /**
-     * @param EmployeeStoreRequest $request
-     * @return mixed
+     * @param EmployeeRequest $request
+     * @return Employee
      */
-    public function store(EmployeeStoreRequest $request);
+    public function store(EmployeeRequest $request): Employee;
 
     /**
      * @param Employee $employee
-     * @param EmployeeStoreRequest $request
-     * @return mixed
+     * @param EmployeeRequest $request
+     * @return bool
      */
-    public function update(Employee $employee, EmployeeStoreRequest $request);
+    public function update(Employee $employee, EmployeeRequest $request): bool;
 
     /**
      * @param Employee $employee
-     * @return mixed
+     * @return void
      */
-    public function destroy(Employee $employee);
+    public function destroy(Employee $employee): void;
 }

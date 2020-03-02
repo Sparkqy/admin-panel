@@ -2,7 +2,6 @@
 @section('title', 'Employees')
 
 @push('page-styles')
-    <!-- Datatables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 @endpush
 
@@ -12,7 +11,7 @@
             <h1 class="h4">Employees</h1>
             <a href="{{ route('employees.create') }}" class="btn btn-primary">Add employee</a>
         </div>
-        @include('includes.messages.flash-messages')
+        @include('partials.messages.flash-messages')
         <div class="border">
             <h3 class="h6 p-3">Employee list</h3>
             <table class="table table-responsive-sm table-bordered table-striped" id="employeesTable"
@@ -33,29 +32,7 @@
         </div>
     </div>
 
-    <div class="modal" id="removing-employee-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Remove employee</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to remove employee <span id="remove-employee-name"></span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <form action="" method="post" id="remove-employee-form">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-danger">Remove</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('employees.modals.remove')
 @endsection
 
 @push('page-scripts')

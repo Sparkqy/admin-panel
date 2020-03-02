@@ -6,7 +6,6 @@ services:
         user: docker
         uid: 1000
       context: ./docker/php-fpm
-    image: travellist
     container_name: admin-panel_app
     restart: unless-stopped
     working_dir: /var/www/

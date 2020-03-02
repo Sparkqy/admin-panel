@@ -18,15 +18,15 @@ class DatatablesBuilder
 
         return DataTables::of($employees)
             ->editColumn('profile_image', function (Employee $employee) {
-                return "<img src='$employee->profile_image' alt='$employee->name profile image' class='image-sm'>";
+                return "<img src='" . asset($employee->profile_image) . "' alt='$employee->name profile image' class='profile-image-icon'>";
             })
-            ->editColumn('actions', function (Employee $employee) {
+            ->addColumn('actions', function (Employee $employee) {
                 $actions = "<a href='" . route('employees.edit', $employee->id) . "' class='btn btn-sm btn-link'><i class='fa fa-pencil'></i></a>";
                 $actions .= "<button class='btn btn-sm btn-link' id='remove-employee' data-id='$employee->id' data-name='$employee->name'><i class='fa fa-trash text-danger'></i></button>";
                 return $actions;
             })
-            ->editColumn('position', function (Employee $employee) {
-                return $employee->position->name;
+            ->addColumn('position', function (Employee $employee) {
+                return $employee->position->name ?? '-';
             })
             ->editColumn('date_of_employment', function (Employee $employee) {
                 return $employee->date_of_employment->format('d.m.Y');
@@ -47,7 +47,7 @@ class DatatablesBuilder
             ->editColumn('updated_at', function (Position $position) {
                 return $position->updated_at ? $position->updated_at->format('d.m.Y') : $position->created_at->format('d.m.Y');
             })
-            ->editColumn('actions', function (Position $position) {
+            ->addColumn('actions', function (Position $position) {
                 $actions = "<a href='" . route('positions.edit', $position->id) . "' class='btn btn-sm btn-link'><i class='fa fa-pencil'></i></a>";
                 $actions .= "<button class='btn btn-sm btn-link' id='remove-position' data-id='$position->id' data-name='$position->name'><i class='fa fa-trash text-danger'></i></button>";
                 return $actions;
