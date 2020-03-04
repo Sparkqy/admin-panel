@@ -8,18 +8,20 @@
             </div>
             <ul class="nav nav-pills nav-sidebar flex-column">
                 <li class="nav-item">
-                    <a href="{{ route('employees.index') }}" class="nav-link @if(\App\Helpers\Url\Url::hasString('employees')) active @endif">
+                    <a href="{{ route('employees.index') }}"
+                       class="nav-link @if(\App\Helpers\Url\Url::hasString('employees')) active @endif">
                         <i class="nav-icon fa fa-users"></i>Employees
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('positions.index') }}" class="nav-link @if(\App\Helpers\Url\Url::hasString('positions')) active @endif">
+                    <a href="{{ route('positions.index') }}"
+                       class="nav-link @if(\App\Helpers\Url\Url::hasString('positions')) active @endif">
                         <i class="nav-icon fa fa-book"></i>Positions
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link @if(\App\Helpers\Url\Url::hasString('currencies')) active @endif">
-                        <i class="nav-icon fa fa-money"></i>Currencies
+                    <a href="{{ route('currencies.index') }}" class="nav-link @if(\App\Helpers\Url\Url::hasString('currencies')) active @endif">
+                        <i class="nav-icon fa fa-money"></i>Currency settings
                     </a>
                 </li>
             </ul>

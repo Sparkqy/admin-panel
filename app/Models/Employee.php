@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Currencies\CurrencyConverter;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,6 +44,15 @@ class Employee extends Authenticatable
      * @var array
      */
     protected $dates = ['date_of_employment'];
+
+    /**
+     * @param float $value
+     * @return float|int
+     */
+    public function getSalaryAttribute(float $value)
+    {
+        return round(CurrencyConverter::convert($value), 3);
+    }
 
     /**
      * @return BelongsTo

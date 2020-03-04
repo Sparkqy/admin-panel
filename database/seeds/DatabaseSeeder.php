@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Administrator;
+use App\Models\Currency;
 use App\Models\Employee;
 use App\Models\Position;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +17,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Disable mass assignment protection and set foreign key checks to zero to seed relationships
         Model::unguard();
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
@@ -41,7 +41,10 @@ class DatabaseSeeder extends Seeder
         })->toArray();
         Employee::insert($employees);
 
-        // Set foreign key checks back to default value
+        // Seed `currencies` table
+        Currency::insert(factory(Currency::class)->make()->toArray());
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        Model::reguard();
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Administrator extends Authenticatable
 {
-    use Notifiable, RememberTokensDisabled;
+    use Notifiable;
 
     const ADMIN_ROLE = 1;
     const MANAGER_ROLE = 2;

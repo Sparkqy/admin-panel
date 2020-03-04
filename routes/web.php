@@ -16,13 +16,16 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes(['register' => false, 'verify' => false, 'reset' => false]);
 
-Route::redirect('/', '/employees');
-
 Route::middleware(['auth'])->group(function () {
     // Employees
+    Route::redirect('/', '/employees');
     Route::resource('employees', 'EmployeesController');
 
     // Positions
     Route::resource('positions', 'PositionsController');
+
+    // Currencies
+    Route::resource('currencies', 'CurrenciesController');
+    Route::get('currencies/{currency}/set', 'CurrenciesController@setCurrency')->name('currencies.set-currency');
 });
 

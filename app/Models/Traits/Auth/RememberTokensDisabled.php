@@ -2,7 +2,7 @@
 
 namespace App\Models\Traits\Auth;
 
-trait RememberTokensDisabled
+trait AbstractRememberTokensDisabled
 {
     /**
      * Disable remember token getter
