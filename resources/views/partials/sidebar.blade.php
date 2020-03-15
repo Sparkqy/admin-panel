@@ -9,18 +9,19 @@
             <ul class="nav nav-pills nav-sidebar flex-column">
                 <li class="nav-item">
                     <a href="{{ route('employees.index') }}"
-                       class="nav-link @if(\App\Helpers\Url\Url::hasString('employees')) active @endif">
+                       class="nav-link @if(\Illuminate\Support\Str::contains(url()->current(), 'employees')) active @endif">
                         <i class="nav-icon fa fa-users"></i>Employees
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('positions.index') }}"
-                       class="nav-link @if(\App\Helpers\Url\Url::hasString('positions')) active @endif">
+                       class="nav-link @if(\Illuminate\Support\Str::contains(url()->current(), 'positions')) active @endif">
                         <i class="nav-icon fa fa-book"></i>Positions
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('currencies.index') }}" class="nav-link @if(\App\Helpers\Url\Url::hasString('currencies')) active @endif">
+                    <a href="{{ route('currencies.index') }}"
+                       class="nav-link @if(\Illuminate\Support\Str::contains(url()->current(), 'currencies')) active @endif">
                         <i class="nav-icon fa fa-money"></i>Currency settings
                     </a>
                 </li>

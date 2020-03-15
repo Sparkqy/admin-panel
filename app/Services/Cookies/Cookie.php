@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers\Cookies;
+namespace App\Services\Cookies;
 
 class Cookie
 {
@@ -38,5 +38,28 @@ class Cookie
         unset($_COOKIE[$key]);
 
         return true;
+    }
+
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public static function has(string $key): bool
+    {
+        return isset($_COOKIE[$key]);
+    }
+
+    /**
+     * @param string $key
+     * @param $value
+     * @return bool
+     */
+    public static function is(string $key, $value): bool
+    {
+        if (!self::has($key)) {
+            return false;
+        }
+
+        return self::get($key) === $value;
     }
 }

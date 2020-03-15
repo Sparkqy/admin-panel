@@ -24,7 +24,9 @@
                     <th scope="col">Date of employment</th>
                     <th scope="col">Phone number</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Salary</th>
+                    <th scope="col">
+                        Salary {{ $currentCurrencySymbol  }}
+                    </th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>

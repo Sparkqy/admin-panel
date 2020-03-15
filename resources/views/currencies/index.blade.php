@@ -16,8 +16,8 @@
                     <div class="info-box-content">
                         <span class="info-box-text">
                             {{ $currency->code }}
-                            @if(\App\Helpers\Cookies\Cookie::get(\App\Models\Currency::SYSTEM_CURRENCY_CODE_COOKIE_NAME) === $currency->code)
-                                <span class="small">(current system currency)</span>
+                            @if(\App\Services\Cookies\Cookie::is(\App\Models\Currency::SYSTEM_CURRENCY_CODE_COOKIE_NAME, $currency->code))
+                                <span class="small">(current)</span>
                             @endif
                         </span>
                         <span class="info-box-number">Rate: {{ $currency->rate }}</span>
@@ -26,13 +26,16 @@
                         </div>
                         <span class="progress-description">70% Increase in 30 Days</span>
                         <div class="btn-group">
-                            <a href="{{ route('currencies.show', $currency->code) }}" class="btn btn-sm btn-success" title="Preview currency">
+                            <a href="{{ route('currencies.show', $currency->code) }}" class="btn btn-sm btn-success"
+                               title="View details">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            <a href="{{ route('currencies.set-currency', $currency->code) }}"
-                               class="btn btn-sm btn-primary" title="Set currency">
-                                <i class="fa fa-check-circle"></i>
-                            </a>
+                            @if(!\App\Services\Currencies\Currency::isCurrent($currency->code))
+                                <a href="{{ route('currencies.set-currency', $currency->code) }}"
+                                   class="btn btn-sm btn-primary" title="Convert to {{ $currency->code }}">
+                                    <i class="fa fa-check-circle"></i>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

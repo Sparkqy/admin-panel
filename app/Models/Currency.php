@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Services\Currencies\CurrencyConverter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -13,7 +12,7 @@ class Currency extends Model
     /**
      * @var array
      */
-    public $fillable = ['code', 'symbol', 'rate', 'is_main'];
+    public $fillable = ['code', 'symbol', 'rate'];
 
     /**
      * @return string
@@ -30,6 +29,14 @@ class Currency extends Model
     public function scopeMain(Builder $builder): Builder
     {
         return $builder->where('is_main', 1);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMain(): bool
+    {
+        return $this->code === 1;
     }
 
     /**

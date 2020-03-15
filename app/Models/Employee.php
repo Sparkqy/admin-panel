@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\Currencies\CurrencyConverter;
+use Exception;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,6 +49,7 @@ class Employee extends Authenticatable
     /**
      * @param float $value
      * @return float|int
+     * @throws Exception
      */
     public function getSalaryAttribute(float $value)
     {

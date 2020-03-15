@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Cookies\Cookie;
 use App\Models\Currency;
 use App\Repositories\Interfaces\CurrencyRepositoryInterface;
+use App\Services\Cookies\Cookie;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
