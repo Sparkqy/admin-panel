@@ -2,7 +2,6 @@
 
 namespace App\Services\Currencies;
 
-use \App\Models\Currency;
 use Exception;
 use GuzzleHttp\Client;
 
@@ -13,7 +12,7 @@ class CurrencyRates
      */
     public static function getRates(): void
     {
-        $mainCurrency = Currency::main()->first();
+        $mainCurrency = CurrencyConverter::getMainCurrency();
         $requestUrl = config('currency_rates.api_url') . '/latest?base=' . $mainCurrency->code;
         $client = new Client();
 

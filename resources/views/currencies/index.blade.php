@@ -30,7 +30,7 @@
                                title="View details">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            @if(!\App\Services\Currencies\Currency::isCurrent($currency->code))
+                            @if(!\App\Services\Currencies\CurrencyService::isCurrent($currency->code))
                                 <a href="{{ route('currencies.set-currency', $currency->code) }}"
                                    class="btn btn-sm btn-primary" title="Convert to {{ $currency->code }}">
                                     <i class="fa fa-check-circle"></i>

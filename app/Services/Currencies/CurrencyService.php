@@ -5,7 +5,7 @@ namespace App\Services\Currencies;
 use App\Services\Cookies\Cookie;
 use App\Models\Currency as CurrencyModel;
 
-class Currency
+class CurrencyService
 {
     /**
      * @return CurrencyModel

@@ -5,11 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PositionRequest;
 use App\Models\Position;
 use App\Repositories\Interfaces\PositionRepositoryInterface;
-use App\Repositories\PositionRepository;
-use App\Services\Datatables\DatatablesBuilder;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PositionsController extends Controller

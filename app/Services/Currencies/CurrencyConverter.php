@@ -21,10 +21,11 @@ class CurrencyConverter
 
     /**
      * Load currencies container with Currency instances.
+     * @param bool $forceLoad
      */
-    private static function loadCurrenciesContainer(): void
+    private static function loadCurrenciesContainer(bool $forceLoad = false): void
     {
-        if (empty(self::$currenciesContainer)) {
+        if (empty(self::$currenciesContainer) || $forceLoad) {
             $currencies = Currency::get();
 
             foreach ($currencies as $currency) {
@@ -42,22 +43,32 @@ class CurrencyConverter
     }
 
     /**
-     * Load main currency.
+     * @return Currency
      */
-    private static function loadMainCurrency(): void
+    public static function getMainCurrency(): Currency
     {
-        if (!isset(self::$mainCurrency)) {
+        return self::$mainCurrency;
+    }
+
+    /**
+     * Load main currency.
+     * @param bool $forceLoad
+     */
+    private static function loadMainCurrency(bool $forceLoad = false): void
+    {
+        if (empty(self::$mainCurrency) || $forceLoad) {
             self::$mainCurrency = Currency::main()->first();
         }
     }
 
     /**
      * Call loaders.
+     * @param bool $forceLoad
      */
-    private static function callLoaders(): void
+    private static function callLoaders(bool $forceLoad = false): void
     {
-        self::loadCurrenciesContainer();
-        self::loadMainCurrency();
+        self::loadCurrenciesContainer($forceLoad);
+        self::loadMainCurrency($forceLoad);
     }
 
     /**
@@ -81,9 +92,8 @@ class CurrencyConverter
             $originCurrency->updated_at->startOfDay() != Carbon::now()->startOfDay() ||
             $targetCurrency->updated_at->startOfDay() != Carbon::now()->startOfDay()
         ) {
-            self::callLoaders();
             CurrencyRates::getRates();
-
+            self::callLoaders(true);
             $originCurrency = self::getOriginCurrencyByCode($originCurrencyCode);
             $targetCurrency = self::getTargetCurrencyByCode($targetCurrencyCode);
         }
@@ -93,7 +103,7 @@ class CurrencyConverter
 
     /**
      * @param string $originCurrencyCode
-     * @return Currency
+     * @return CurrencyService
      */
     private static function getOriginCurrencyByCode(string $originCurrencyCode = null): Currency
     {
@@ -102,7 +112,7 @@ class CurrencyConverter
 
     /**
      * @param string $targetCurrencyCode
-     * @return Currency
+     * @return CurrencyService
      */
     private static function getTargetCurrencyByCode(string $targetCurrencyCode = null): Currency
     {

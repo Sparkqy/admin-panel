@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
-use App\Services\Currencies\Currency;
+use App\Services\Currencies\CurrencyService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -30,7 +30,7 @@ class EmployeesController extends Controller
      */
     public function index(): View
     {
-        $currentCurrencySymbol = Currency::getCurrentCurrency()->symbol;
+        $currentCurrencySymbol = CurrencyService::getCurrentCurrency()->symbol;
 
         return \view('employees.index', compact('currentCurrencySymbol'));
     }
