@@ -2,17 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Api Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register Api routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your Api!
-|
-*/
-
 Route::name('api.')->group(function () {
     // Employees
     Route::get('employees/search-by-name', 'Api\\EmployeesController@searchByName')->name('employees.search-by-name');

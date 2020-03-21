@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CurrencyRequest;
 use App\Models\Currency;
 use App\Repositories\Interfaces\CurrencyRepositoryInterface;
 use App\Services\Cookies\Cookie;
+use App\Services\Currencies\CurrencyRates;
+use App\Services\Currencies\CurrencyService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -48,22 +52,29 @@ class CurrenciesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
+     * @throws \Exception
      */
-    public function create()
+    public function create(): View
     {
-        //
+        $unregisteredCurrencies = CurrencyService::getUnregisteredCurrencies();
+
+        return \view('currencies.create', compact('unregisteredCurrencies'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CurrencyRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CurrencyRequest $request): RedirectResponse
     {
-        //
+        $this->currencyRepository->store($request);
+
+        return redirect()
+            ->route('currencies.index')
+            ->with('success', 'New currency was successfully registered.');
     }
 
     /**

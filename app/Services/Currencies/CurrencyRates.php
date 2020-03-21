@@ -10,12 +10,11 @@ class CurrencyRates
     /**
      * @throws Exception
      */
-    public static function getRates(): void
+    public static function updateRatesToLatest(): void
     {
-        $mainCurrency = CurrencyConverter::getMainCurrency();
-        $requestUrl = config('currency_rates.api_url') . '/latest?base=' . $mainCurrency->code;
+        $mainCurrencyCode = CurrencyConverter::getMainCurrency()->code;
+        $requestUrl = config('currency_rates.api_url') . '/latest?base=' . $mainCurrencyCode;
         $client = new Client();
-
         $requestResponse = $client->request('GET', $requestUrl);
 
         if ($requestResponse->getStatusCode() !== 200) {
@@ -35,5 +34,46 @@ class CurrencyRates
                 $currency->touch();
             }
         }
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public static function getCurrenciesList(): array
+    {
+        $mainCurrencyCode = CurrencyService::getCurrentCurrency()->code;
+        $requestUrl = config('currency_rates.api_url') . '/latest?base=' . $mainCurrencyCode;
+        $client = new Client();
+        $requestResponse = $client->request('GET', $requestUrl);
+
+        if ($requestResponse->getStatusCode() !== 200) {
+            throw new Exception('There is a problem with currency rates service');
+        }
+
+        $currencies = array_keys(json_decode($requestResponse->getBody()->getContents(), true)['rates']);
+
+        return array_merge($currencies, [$mainCurrencyCode]);
+    }
+
+    /**
+     * @param string $code
+     * @return string|null
+     * @throws Exception
+     */
+    public static function getCurrencyRateByCode(string $code): ?string
+    {
+        $mainCurrencyCode = CurrencyService::getCurrentCurrency()->code;
+        $requestUrl = config('currency_rates.api_url') . '/latest?base=' . $mainCurrencyCode;
+        $client = new Client();
+        $requestResponse = $client->request('GET', $requestUrl);
+
+        if ($requestResponse->getStatusCode() !== 200) {
+            throw new Exception('There is a problem with currency rates service');
+        }
+
+        $currencies = json_decode($requestResponse->getBody()->getContents(), true)['rates'];
+
+        return $currencies[$code] ?? null;
     }
 }

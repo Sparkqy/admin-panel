@@ -3,20 +3,20 @@
 namespace App\Services\Currencies;
 
 use App\Services\Cookies\Cookie;
-use App\Models\Currency as CurrencyModel;
+use App\Models\Currency;
 
 class CurrencyService
 {
     /**
-     * @return CurrencyModel
+     * @return Currency
      */
-    public static function getCurrentCurrency(): CurrencyModel
+    public static function getCurrentCurrency(): Currency
     {
-        if (Cookie::has(CurrencyModel::SYSTEM_CURRENCY_CODE_COOKIE_NAME)) {
-            $currentCurrencyCode = Cookie::get(CurrencyModel::SYSTEM_CURRENCY_CODE_COOKIE_NAME);
-            $currentCurrency = CurrencyModel::byCode($currentCurrencyCode)->first();
+        if (Cookie::has(Currency::SYSTEM_CURRENCY_CODE_COOKIE_NAME)) {
+            $currentCurrencyCode = Cookie::get(Currency::SYSTEM_CURRENCY_CODE_COOKIE_NAME);
+            $currentCurrency = Currency::byCode($currentCurrencyCode)->first();
         } else {
-            $currentCurrency = CurrencyModel::main()->first();
+            $currentCurrency = Currency::main()->first();
         }
 
         return $currentCurrency;
@@ -28,6 +28,20 @@ class CurrencyService
      */
     public static function isCurrent(string $currencyCode): bool
     {
-        return Cookie::is(CurrencyModel::SYSTEM_CURRENCY_CODE_COOKIE_NAME, $currencyCode);
+        return Cookie::is(Currency::SYSTEM_CURRENCY_CODE_COOKIE_NAME, $currencyCode);
+    }
+
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public static function getUnregisteredCurrencies(): array
+    {
+        $currencies = CurrencyRates::getCurrenciesList();
+        $registeredCurrencies = Currency::all('code')
+            ->pluck('code')
+            ->toArray();
+
+        return array_values(array_diff($currencies, $registeredCurrencies));
     }
 }

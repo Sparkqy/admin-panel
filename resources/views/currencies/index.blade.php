@@ -5,7 +5,7 @@
     <div class="col-12 p-3">
         <div class="d-flex justify-content-between mb-3">
             <h1 class="h4">Currency settings</h1>
-            <a href="{{ route('currencies.index') }}" class="btn btn-primary">Add currency</a>
+            <a href="{{ route('currencies.create') }}" class="btn btn-primary">Add currency</a>
         </div>
         @include('partials.messages.flash-messages')
 

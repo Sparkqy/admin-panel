@@ -57,8 +57,7 @@
                     <label for="position" class="small text-bold">Position</label>
                     <select
                         class="form-control @include('partials.messages.validation-error-input-class', ['fieldName' => 'position_id'])"
-                        style="width: 100%;" id="position" name="position_id"
-                        required>
+                        style="width: 100%;" id="position" name="position_id" required>
                         <option value="{{ $employee->position_id }}">{{ $employee->position->name }}</option>
                     </select>
                     @include('partials.messages.validation-errors', ['fieldName' => 'position_id'])
@@ -74,7 +73,7 @@
                     <label for="head" class="small text-bold">Head</label>
                     <select
                         class="form-control @include('partials.messages.validation-error-input-class', ['fieldName' => 'head_id'])"
-                        style="width: 100%;" id="head" name="head_id">
+                        style="width: 100%;" id="head" name="head_id" required>
                         <option value="{{ $employee->head_id }}">{{ $employee->head->name }}</option>
                     </select>
                     @include('partials.messages.validation-errors', ['fieldName' => 'head_id'])

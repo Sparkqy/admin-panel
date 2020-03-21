@@ -92,7 +92,7 @@ class CurrencyConverter
             $originCurrency->updated_at->startOfDay() != Carbon::now()->startOfDay() ||
             $targetCurrency->updated_at->startOfDay() != Carbon::now()->startOfDay()
         ) {
-            CurrencyRates::getRates();
+            CurrencyRates::updateRatesToLatest();
             self::callLoaders(true);
             $originCurrency = self::getOriginCurrencyByCode($originCurrencyCode);
             $targetCurrency = self::getTargetCurrencyByCode($targetCurrencyCode);
@@ -103,7 +103,7 @@ class CurrencyConverter
 
     /**
      * @param string $originCurrencyCode
-     * @return CurrencyService
+     * @return Currency
      */
     private static function getOriginCurrencyByCode(string $originCurrencyCode = null): Currency
     {
@@ -112,7 +112,7 @@ class CurrencyConverter
 
     /**
      * @param string $targetCurrencyCode
-     * @return CurrencyService
+     * @return Currency
      */
     private static function getTargetCurrencyByCode(string $targetCurrencyCode = null): Currency
     {

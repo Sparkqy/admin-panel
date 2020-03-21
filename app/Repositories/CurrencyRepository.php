@@ -2,11 +2,34 @@
 
 namespace App\Repositories;
 
+use App\Http\Requests\CurrencyRequest;
 use App\Models\Currency;
 use App\Repositories\Interfaces\CurrencyRepositoryInterface;
+use App\Services\Currencies\CurrencyRates;
+use Exception;
 
 class CurrencyRepository implements CurrencyRepositoryInterface
 {
+    /**
+     * @param CurrencyRequest $request
+     * @return Currency
+     * @throws Exception
+     */
+    public function store(CurrencyRequest $request): Currency
+    {
+        $currencyRate = CurrencyRates::getCurrencyRateByCode($request->code);
+
+        if ($currencyRate === null) {
+            throw new Exception('There is no currency available in currency rates service');
+        }
+
+        return Currency::create([
+            'code' => $request->code,
+            'symbol' => $request->symbol,
+            'rate' => $currencyRate,
+        ]);
+    }
+
     /**
      * @inheritDoc
      */
