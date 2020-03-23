@@ -16,7 +16,7 @@
                     <div class="info-box-content">
                         <span class="info-box-text">
                             {{ $currency->code }}
-                            @if(\App\Services\Cookies\Cookie::is(\App\Models\Currency::SYSTEM_CURRENCY_CODE_COOKIE_NAME, $currency->code))
+                            @if(\App\Services\Currencies\CurrencyService::isCurrent($currency->code))
                                 <span class="small">(current)</span>
                             @endif
                         </span>

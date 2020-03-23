@@ -7,15 +7,14 @@ use App\Models\Employee;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Services\Uploaders\ImageUploader;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
 
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
     /**
      * @param EmployeeRequest $request
-     * @return \Illuminate\Http\RedirectResponse|mixed
+     * @return Employee
      */
     public function store(EmployeeRequest $request): Employee
     {
@@ -64,7 +63,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     /**
      * @param Employee $employee
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Employee $employee): void
     {

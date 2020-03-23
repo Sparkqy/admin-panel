@@ -28,6 +28,12 @@ class CurrencyService
      */
     public static function isCurrent(string $currencyCode): bool
     {
+        if (!Cookie::has(Currency::SYSTEM_CURRENCY_CODE_COOKIE_NAME)) {
+            $mainCurrency = Currency::main()->first();
+
+            return $mainCurrency ? $mainCurrency->code === $currencyCode : false;
+        }
+
         return Cookie::is(Currency::SYSTEM_CURRENCY_CODE_COOKIE_NAME, $currencyCode);
     }
 

@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
             })->toArray();
         Position::insert($positions);
 
+        // Seed `currencies` table
+        Currency::insert(factory(Currency::class)->make()->toArray());
+
         $positionsCount = count($positions);
         $employeeCount = 200;
 
@@ -40,9 +43,6 @@ class DatabaseSeeder extends Seeder
             $employee->admin_created_id = rand(1, $administratorsCount);
         })->toArray();
         Employee::insert($employees);
-
-        // Seed `currencies` table
-        Currency::insert(factory(Currency::class)->make()->toArray());
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         Model::reguard();

@@ -13,6 +13,7 @@ $factory->define(Currency::class, function (Faker $faker) {
             'is_main' => 1,
             'rate' => 1,
             'created_at' => now()->toDateString(),
+            'updated_at' => now()->toDateString(),
         ],
         [
             'code' => 'EUR',
@@ -20,6 +21,7 @@ $factory->define(Currency::class, function (Faker $faker) {
             'is_main' => 0,
             'rate' => 1.12,
             'created_at' => now()->toDateString(),
+            'updated_at' => now()->toDateString(),
         ],
     ];
 });
